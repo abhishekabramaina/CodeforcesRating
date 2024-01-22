@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+<div class="container" style="padding: 4em;">
+<div class="bg-light p-5 rounded">
+<h1>Wel-Come To Codeforces LeaderBoard</h1>
+
+<p>Couldn't find Your Id?   <a class="btn btn-light " href="/users/register" role="button">Register</a></p>
+
+<table id="table" class="table table-hover css-serial">
+    <thead >
+      <tr class="fixed">
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col">Code forces Handle</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        <% ress.forEach(student => {%>
+            <tr id = <%= student.handle %>>
+                <td>&nbsp;</td>
+                <td><img src="<%=student.avatar %>" alt="Codeforces userpic" class="rounded-circle"></td>
+                <td><%=student.handle  %></td>
+                <td><%= student.rating %></td>
+            </tr>
+        <%}); %>
+    </tbody>
+  </table>
+
+<p>Couldn't find Your Id?   <a class="btn btn-light" href="/users/register" role="button">Register</a></p>
+
+</div>
+</div>
+
+
+<%- include('partials/footer') %>
