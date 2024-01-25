@@ -25,7 +25,9 @@ app.get("/users/leaderboard",(req,res)=>{
             results.rows.forEach(handle=>API_URL+=";"+handle.codeforces_handle);
             try {
                 var students  = await axios.get(API_URL);
-                res.render("Codeforces",{ress:students.data.result});
+                stud_list = students.data.result;
+                stud_list = quicksort(stud_list);
+                res.render("Codeforces",{ress:stud_list});
             } catch (error) {
                 console.log(error);
                 res.redirect("/")
@@ -80,3 +82,16 @@ app.post("/users/register",async(req,res)=>{
 
 
 app.listen(PORT,()=>{console.log(`Server started at http://localhost:${PORT}`)});
+
+function quicksort(arr) {
+    if (arr.length <= 1) {
+      return arr;
+    }
+  
+    const pivot = arr[Math.floor(arr.length / 2)].rating;
+    const left = arr.filter((element) => element.rating > pivot);
+    const middle = arr.filter((element) => element.rating === pivot);
+    const right = arr.filter((element) => element.rating < pivot);
+  
+    return [...quicksort(left), ...middle, ...quicksort(right)];
+  }
