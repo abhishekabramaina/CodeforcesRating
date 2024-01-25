@@ -17,12 +17,11 @@ app.get("/",(req,res)=>{
 });
 
 app.get("/users/leaderboard",(req,res)=>{
-    API_URL = "https://codeforces.com/api/user.info?handles=CMRIT25_21R01A66E5";
+    API_URL = "https://codeforces.com/api/user.info?handles=";
 
      db.query("Select * from Students",async(err,results)=>{
         if(err){ console.log(err)}
         else{
-            console.log(results);
             results.rows.forEach(handle=>API_URL+=";"+handle.codeforces_handle);
             try {
                 var students  = await axios.get(API_URL);
@@ -42,7 +41,6 @@ app.get("/users/register", (req, res) => {
 
 app.post("/users/register",async(req,res)=>{
     let {rollNumber, studentName, codeforcesId} = req.body;
-    console.log(rollNumber, studentName, codeforcesId);
  
     let errors = [];
     if(!rollNumber || !studentName || !codeforcesId){
